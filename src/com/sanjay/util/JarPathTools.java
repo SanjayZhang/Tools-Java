@@ -11,17 +11,15 @@ import java.net.URLDecoder;
 public class JarPathTools {
 
     public static String getPath() {
-        URL url = JarPathTools.class.getProtectionDomain().getCodeSource().getLocation();
-
-        String path = null;
+        String path = JarPathTools.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         try {
-            //处理中文
-            path = URLDecoder.decode(url.getPath(), "utf-8");
+            //decode with utf-8
+            path = URLDecoder.decode(path, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         if (path.endsWith(".jar"))
-            path = path.substring(0, path.lastIndexOf(PropertiesTools.getFileSeparator()) + 1);
+            path = path.substring(0, path.lastIndexOf(File.separator) + 1);
 
         File f = new File(path);
         path = f.getAbsolutePath();
