@@ -1,7 +1,6 @@
 package com.sanjay.cu;
 
 import com.sanjay.util.FileTools;
-import com.sanjay.util.PropertiesTools;
 
 import java.io.*;
 import java.util.Iterator;
@@ -11,8 +10,6 @@ import java.util.List;
  * Created by zsj_09@hotmail.com on 2014/12/30.
  */
 public class CURes {
-
-    static String BASE_PATH = "C:\\Users\\Administrator\\Desktop\\work\\text\\lint\\";
 
     /**
      * @param f
@@ -47,20 +44,17 @@ public class CURes {
 
     public static void main(String[] args) {
 
-        args = new String[1];
-        args[0] = "lint.txt";
-
         if (args.length < 1) {
-            System.out.println("没有输入参数");
-            return;
+            System.err.println("none args!");
+            System.exit(2);
         }
 
-        File f = new File(BASE_PATH + args[0]);
+        File f = new File(args[0]);
         String s = clearUnusedResources(f);
         if (s != null && !s.equals("")) {
-            String out = f.getParent() + PropertiesTools.getFileSeparator() + "out.txt";
+            String out = new StringBuilder().append(f.getParent()).append(File.separator).append("out.txt").toString();
             FileTools.saveToFile(out, s);
-            System.out.println("成功！ 文件路径:" + out);
+            System.out.println("Success! File path is" + out);
         }
 
     }

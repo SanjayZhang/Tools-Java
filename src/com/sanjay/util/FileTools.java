@@ -1,7 +1,6 @@
 package com.sanjay.util;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.List;
 
 /**
@@ -9,10 +8,8 @@ import java.util.List;
  */
 public class FileTools {
 
-    public static final String DEFAULT_ENCODE = Charset.defaultCharset().name();
-
     /**
-     * 获取文件输入流
+     * Verify file' correctness before get FileInputStream
      */
     public static FileInputStream openInputStream(File file) throws IOException {
         if (file.exists()) {
@@ -62,7 +59,11 @@ public class FileTools {
         BufferedWriter writer = null;
         try {
             ot = openOutputStream(file);
-            writer = new BufferedWriter(new OutputStreamWriter(ot, encoding));
+            if (encoding != null) {
+                writer = new BufferedWriter(new OutputStreamWriter(ot, encoding));
+            }else{
+                writer = new BufferedWriter(new OutputStreamWriter(ot));
+            }
             IOTools.write(data, writer);
         } finally {
             IOTools.closeQuietly(writer);
@@ -70,11 +71,15 @@ public class FileTools {
         }
     }
 
+    public static void writeStringToFileW(File file, String data) throws IOException {
+        writeStringToFileW(file, data, null);
+    }
+
     public static void saveToFile(String path, String data) {
         File f = new File(path);
         try {
             f.createNewFile();
-            writeStringToFileW(f, data, DEFAULT_ENCODE);
+            writeStringToFileW(f, data);
         } catch (IOException e) {
             e.printStackTrace();
         }
