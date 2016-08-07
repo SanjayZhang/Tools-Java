@@ -1,6 +1,5 @@
 package com.sanjay.util;
 
-import com.sanjay.HexinXmlParser;
 
 import java.util.HashMap;
 
@@ -15,7 +14,6 @@ public class Log {
 
     static {
         mDebugAble = new HashMap<String, Boolean>();
-        mDebugAble.put(HexinXmlParser.TAG, false);
     }
 
     private static void println(String priority, String tag, String msg) {
@@ -35,8 +33,9 @@ public class Log {
 
     public static void d(String msg, Throwable t) {
         d("", msg);
-        if (t != null)
+        if (t != null) {
             t.printStackTrace();
+        }
     }
 
     public static void e(String tag, String msg) {
@@ -49,13 +48,14 @@ public class Log {
 
     public static void e(String msg, Throwable t) {
         e("", msg);
-        if (t != null)
+        if (t != null) {
             t.printStackTrace();
+        }
     }
 
     private static boolean show(String tag) {
         Boolean b = mDebugAble.get(tag);
-        return b != null ? b : true;
+        return b == null ? true : b;
     }
 
 }

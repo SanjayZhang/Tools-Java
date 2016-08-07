@@ -22,11 +22,13 @@ public class Array {
         //泛型不能直接通过 new T[]建立，需要通过以下方式新建
         T[] tmp = (T[]) java.lang.reflect.Array.newInstance(type, t.length - 1);
 
-        if (0 < index - 1)
+        if (0 < index - 1) {
             System.arraycopy(t, 0, tmp, 0, index - 1);
+        }
 
-        if (index - 1 < tmp.length)
+        if (index - 1 < tmp.length) {
             System.arraycopy(t, index, tmp, index - 1, tmp.length - (index - 1));
+        }
         return tmp;
     }
 }

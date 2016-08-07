@@ -7,24 +7,22 @@ import java.util.Properties;
  */
 public class PropertiesTools {
 
-    public static final Properties PROPERTIES = new Properties(System.getProperties());
+    private static final Properties PROPERTIES = new Properties(System.getProperties());
 
 
-
-    public static String getFileSeparator(){
+    public static String getFileSeparator() {
         return PROPERTIES.getProperty("file.separator");
     }
 
-    public static String getPathSeparator(){
+    public static String getPathSeparator() {
         return PROPERTIES.getProperty("path.separator");
     }
 
-    public static String getLineSeparator(){
+    public static String getLineSeparator() {
         return PROPERTIES.getProperty("line.separator");
     }
 
     public static void main(String[] args) {
-
         Log.d(getFileSeparator());
         Log.d(getPathSeparator());
         Log.d(getLineSeparator());

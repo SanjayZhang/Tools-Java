@@ -1,6 +1,14 @@
 package com.sanjay.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,36 +34,34 @@ public class IOTools {
     }
 
     public static List<String> readLines(InputStream in, String encoding) throws IOException {
-        if (encoding != null)
-            return readLines(new InputStreamReader(in, encoding));
-        else
-            return readLines(new InputStreamReader(in));
+        return readLines(new InputStreamReader(in, encoding));
     }
 
     public static void write(String data, Writer writer) throws IOException {
-        if (data != null)
-            writer.write(data);
-    }
+        if (data == null) {
+            return;
+        }
 
-    public static void write(String data, OutputStream out) throws IOException {
-        if (data != null)
-            out.write(data.getBytes());
+        writer.write(data);
     }
 
     public static void write(String data, OutputStream out, String encoding) throws IOException {
-        if (data != null)
-            if (encoding != null)
-                write(data, out);
-            else
-                out.write(data.getBytes(encoding));
+        if (data == null) {
+            return;
+        }
+
+        out.write(data.getBytes(encoding));
     }
 
     public static void closeQuietly(Closeable closeable) {
-        if (closeable != null)
-            try {
-                closeable.close();
-            } catch (IOException e) {
-            }
+        if (closeable == null) {
+            return;
+        }
 
+        try {
+            closeable.close();
+        } catch (IOException e) {
+            //do nothing
+        }
     }
 }
