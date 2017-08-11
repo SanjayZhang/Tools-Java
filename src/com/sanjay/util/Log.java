@@ -16,6 +16,10 @@ public class Log {
         mDebugAble = new HashMap<String, Boolean>();
     }
 
+    public static void addDebugAbleRule(String tag, boolean debug) {
+        mDebugAble.put(tag, debug);
+    }
+
     private static void println(String priority, String tag, String msg) {
         if (debug && show(tag)) {
             System.out.println("====" + tag + "====" + priority);

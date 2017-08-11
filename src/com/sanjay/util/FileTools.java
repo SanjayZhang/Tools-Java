@@ -1,14 +1,7 @@
 package com.sanjay.util;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,6 +108,28 @@ public class FileTools {
 
     public static void writeStringToFileO(File file, String data) throws IOException {
         writeStringToFileO(file, data, DEFAULT_ENCODE);
+    }
+
+    public static List<File> getAllFiles(File root) throws FileNotFoundException {
+        if (!root.exists()) {
+            throw new FileNotFoundException(root.getAbsolutePath() + " does not exist");
+        }
+
+        List<File> filesList = new ArrayList<File>();
+
+        if (root.isDirectory()) {
+            File[] files = root.listFiles();
+            if (files == null) {
+                return filesList;
+            }
+
+            for (File file : files) {
+                filesList.addAll(getAllFiles(file));
+            }
+        } else {
+            filesList.add(root);
+        }
+        return filesList;
     }
 
 }

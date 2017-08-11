@@ -22,10 +22,4 @@ public class PropertiesTools {
         return PROPERTIES.getProperty("line.separator");
     }
 
-    public static void main(String[] args) {
-        Log.d(getFileSeparator());
-        Log.d(getPathSeparator());
-        Log.d(getLineSeparator());
-    }
-
 }
